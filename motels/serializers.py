@@ -4,7 +4,7 @@ from .models import Town
 from rest_framework import serializers
 
 class CommentSerializer(serializers.ModelSerializer):
-    created_date = serializers.DateTimeField(format='%d/%m/%Y %H:%M')
+    created_date = serializers.DateTimeField(format='%d/%m/%Y %H:%M', required=False)
 
     class Meta:
         model = Comment
