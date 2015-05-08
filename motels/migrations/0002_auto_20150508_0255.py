@@ -12,8 +12,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='motel',
-            name='ranking',
-            field=models.DecimalField(null=True, max_digits=3, decimal_places=1, blank=True),
+            model_name='comment',
+            name='motel',
+            field=models.ForeignKey(related_name='motel', to='motels.Motel'),
         ),
     ]

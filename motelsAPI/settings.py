@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'motels',
+    'core',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,11 +80,8 @@ WSGI_APPLICATION = 'motelsAPI.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'motels_db',
-        'USER': 'admin_motels',
-        'PASS': 'motels',
-
     }
 }
 
@@ -108,6 +106,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+   'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
     'PAGE_SIZE': 10
 }
 
