@@ -10,10 +10,12 @@ from rest_framework.response import Response
 from .models import Comment
 from .models import Motel
 from .models import Town
+from .models import Amenitie
 from .serializers import CommentSerializer
 from .serializers import MotelSerializer
 from .serializers import MotelListSerializer
 from .serializers import TownSerializer
+from .serializers import AmenitieSerializer
 
 # Create your views here.
 
@@ -61,6 +63,20 @@ def motel_detail(request, pk):
 
     if request.method == 'GET':
         serializer = MotelSerializer(motel)
+        return JSONResponse(serializer.data)
+
+@csrf_exempt
+def amenities_list(request, pk):
+    """
+    retireves a motel by its id
+    """ 
+    try:
+        amenities = Amenitie.objects.get(pk=pk)
+    except Amenitie.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = AmenitieSerializer(amenities)
         return JSONResponse(serializer.data)
 
 @api_view(['GET', 'POST'])

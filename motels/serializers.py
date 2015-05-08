@@ -1,6 +1,7 @@
 from .models import Comment
 from .models import Motel
 from .models import Town
+from .models import Amenitie
 from rest_framework import serializers
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -19,6 +20,15 @@ class MotelListSerializer(serializers.ModelSerializer):
                   'website', 'description')
 
 class MotelSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Motel
+        fields = ('id', 'name', 'town', 'latitude', 
+                  'longitude','ranking','telephone', 
+                  'website','description', 'comments')
+
+class AmenitieSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:

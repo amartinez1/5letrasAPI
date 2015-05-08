@@ -1,6 +1,7 @@
 from .models import Comment
 from .models import Motel
 from .models import Town
+from .models import Amenitie
 from django.contrib import admin
 # Register your models here.
 
@@ -19,9 +20,13 @@ class TownAdmin(admin.ModelAdmin):
 
 class MotelAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'town', 'latitude', 'longitude',
-              'ranking', 'telephone', 'website', 'description')
-    list_display = ('name', 'latitude', 'longitude', 'ranking')
+    fields = ('name', 'town', 'number_of_rooms', 
+              'latitude', 'longitude', 
+              'ranking', 'telephone', 'website', 'email',
+              'description', 'amenitie')
+    list_display = ('name', 'latitude', 'longitude', 
+                    'ranking','number_of_rooms', 'email', 
+                    'website', 'created_date', 'updated_date')
     list_display_links = ['name','ranking']
     list_filter =['name','ranking']
     search_fields = ['name', 'latitude', 'longitude', 'ranking']
@@ -34,7 +39,17 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter =['body','ranking']
     search_fields = ['body', 'ranking']
 
+class AmenitieAdmin(admin.ModelAdmin):
+    date_hierarchy = "updated_date"
+    #fields = ('name')
+    #list_display = ('name')
+    #list_display_links = ['name']
+    list_filter =['name']
+    search_fields = ['name']
+
 admin.site.register(Town, TownAdmin)
 admin.site.register(Motel, MotelAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Amenitie, AmenitieAdmin)
+
 
