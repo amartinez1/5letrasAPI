@@ -1,5 +1,5 @@
 from django.db import models
-
+from autoslug import AutoSlugField
 from core.models import TimeStampedModel
 
 class Amenitie(TimeStampedModel):
@@ -16,6 +16,7 @@ class Town(TimeStampedModel):
     small_img = models.CharField(max_length=500, unique=False, null=True, blank=True)
     medium_img = models.CharField(max_length=500, unique=False, null=True, blank=True)
     large_img = models.CharField(max_length=500, unique=False, null=True, blank=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
@@ -39,6 +40,7 @@ class Motel(TimeStampedModel):
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     amenitie = models.ManyToManyField(Amenitie, related_name='amenities', blank=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
