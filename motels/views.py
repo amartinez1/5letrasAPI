@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+
 
 # from rest_framework.parsers import JSONParser #for Post, UPdate, Delete
 # requests
@@ -15,7 +17,7 @@ from .serializers import CommentSerializer
 from .serializers import MotelSerializer
 from .serializers import MotelListSerializer
 from .serializers import TownSerializer
-from .serializers import AmenitieSerializer
+from .serializers import AmenitiesSerializer
 
 # Create your views here.
 
@@ -66,21 +68,17 @@ def motel_detail(request, pk):
         return JSONResponse(serializer.data)
 
 @csrf_exempt
-def amenities_list(request, pk):
+def amenities_list(request):
     """
     retireves a motel by its id
     """ 
-    try:
-        amenities = Amenitie.objects.get(pk=pk)
-    except Amenitie.DoesNotExist:
-        return HttpResponse(status=404)
-
     if request.method == 'GET':
-        serializer = AmenitieSerializer(amenities)
+        amenitie = Amenitie.objects.all()
+        serializer = AmenitiesSerializer(amenitie, many=True)
         return JSONResponse(serializer.data)
 
 @api_view(['GET', 'POST'])
-def comment(request):
+def comment_list(request):
     if request.method == 'GET':
         comment = Comment.objects.all()
         serializer = CommentSerializer(comment, many=True)

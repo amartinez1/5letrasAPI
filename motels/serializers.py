@@ -15,29 +15,26 @@ class CommentSerializer(serializers.ModelSerializer):
 class MotelListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Motel
-        fields = ('id', 'name', 'town', 'latitude', 
-                  'longitude', 'ranking', 'telephone', 
-                  'website', 'description')
+        fields = ('id', 'name', 'slug', 'town',
+                  'latitude', 'longitude', 'ranking',
+                  'telephone', 'website', 'description')
 
 class MotelSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Motel
-        fields = ('id', 'name', 'town', 'latitude', 
-                  'longitude','ranking','telephone', 
-                  'website','description', 'comments')
+        fields = ('id', 'name', 'slug', 'town', 
+                  'latitude', 'longitude','ranking',
+                  'telephone', 'website','description', 
+                  'comments')
 
-class AmenitieSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True, read_only=True)
-
+class AmenitiesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Motel
-        fields = ('id', 'name', 'town', 'latitude', 
-                  'longitude','ranking','telephone', 
-                  'website','description', 'comments')
+        model = Amenitie
+        fields = ('id', 'name',)
 
 class TownSerializer(serializers.ModelSerializer):
     class Meta:
         model = Town
-        fields = ('name', 'latitude', 'longitude')
+        fields = ('id', 'name', 'slug', 'latitude', 'longitude')
