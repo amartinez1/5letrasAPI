@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-
+from rest_framework import generics
 
 # from rest_framework.parsers import JSONParser #for Post, UPdate, Delete
 # requests
@@ -19,44 +19,33 @@ from .serializers import MotelListSerializer
 from .serializers import TownSerializer
 from .serializers import AmenitiesSerializer
 
-# Create your views here.
-
-
 class JSONResponse(HttpResponse):
-
     """
     An HttpResponse that renders its content into JSON.
     """
-
     def __init__(self, data, **kwargs):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
-@csrf_exempt
-def town_list(request):
+class TownList(generics.ListAPIView):
     """
-    retrieves a list of all motels
+    retrieves a list of all Towns
     """
-    if request.method == 'GET':
-        motels = Town.objects.all()
-        serializer = TownSerializer(motels, many=True)
-        return JSONResponse(serializer.data)
+    queryset = Town.objects.all()
+    serializer_class = TownSerializer
 
-@csrf_exempt
-def motel_list(request):
+class MotelList(generics.ListAPIView):
     """
-    retrieves a list of all motels
+    Retrieves a list of all motels
     """
-    if request.method == 'GET':
-        motels = Motel.objects.all()
-        serializer = MotelListSerializer(motels, many=True)
-        return JSONResponse(serializer.data)
+    queryset = Motel.objects.all()
+    serializer_class = MotelSerializer
 
 @csrf_exempt
 def motel_detail(request, pk):
     """
-    retireves a motel by its id
+    Retireves a motel by its id
     """ 
     try:
         motel = Motel.objects.get(pk=pk)
@@ -67,25 +56,16 @@ def motel_detail(request, pk):
         serializer = MotelSerializer(motel)
         return JSONResponse(serializer.data)
 
-@csrf_exempt
-def amenities_list(request):
+class AmenitiesList(generics.ListAPIView):
     """
-    retireves a motel by its id
-    """ 
-    if request.method == 'GET':
-        amenitie = Amenitie.objects.all()
-        serializer = AmenitiesSerializer(amenitie, many=True)
-        return JSONResponse(serializer.data)
+    Retrieves a list of all amenities
+    """
+    queryset = Amenitie.objects.all()
+    serializer_class = AmenitiesSerializer
 
-@api_view(['GET', 'POST'])
-def comment_list(request):
-    if request.method == 'GET':
-        comment = Comment.objects.all()
-        serializer = CommentSerializer(comment, many=True)
-        return JSONResponse(serializer.data)
-    elif request.method == 'POST':
-        serializer = CommentSerializer(data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class CommentList(generics.ListCreateAPIView):
+    """
+    Retrieves a list of all Comments
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
