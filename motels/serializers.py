@@ -19,7 +19,7 @@ class MotelListSerializer(serializers.ModelSerializer):
                   'latitude', 'longitude', 'ranking',
                   'telephone', 'website', 'description')
 
-class MotelSerializer(serializers.ModelSerializer):
+class MotelRetrieveSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:

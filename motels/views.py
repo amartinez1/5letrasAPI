@@ -14,8 +14,8 @@ from .models import Motel
 from .models import Town
 from .models import Amenitie
 from .serializers import CommentSerializer
-from .serializers import MotelSerializer
 from .serializers import MotelListSerializer
+from .serializers import MotelRetrieveSerializer
 from .serializers import TownSerializer
 from .serializers import AmenitiesSerializer
 
@@ -40,21 +40,14 @@ class MotelList(generics.ListAPIView):
     Retrieves a list of all motels
     """
     queryset = Motel.objects.all()
-    serializer_class = MotelSerializer
+    serializer_class = MotelListSerializer
 
-@csrf_exempt
-def motel_detail(request, pk):
+class MotelRetrieve(generics.RetrieveAPIView):
     """
-    Retireves a motel by its id
-    """ 
-    try:
-        motel = Motel.objects.get(pk=pk)
-    except Motel.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = MotelSerializer(motel)
-        return JSONResponse(serializer.data)
+    Retrieves a motel by its id 
+    """
+    queryset = Motel.objects.all()
+    serializer_class = MotelRetrieveSerializer
 
 class AmenitiesList(generics.ListAPIView):
     """
