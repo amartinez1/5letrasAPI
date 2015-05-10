@@ -17,7 +17,7 @@ class Town(TimeStampedModel):
     longitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
     image = VersatileImageField(
         'Image',
-        upload_to='files/',
+        upload_to='',
         ppoi_field='image_ppoi',
         blank=True
     )
@@ -44,7 +44,7 @@ class Motel(TimeStampedModel):
     email = models.EmailField(blank=True, null=True, unique=False)
     image = VersatileImageField(
         'Image',
-        upload_to='files/',
+        upload_to='',
         ppoi_field='image_ppoi',
         blank=True
     )

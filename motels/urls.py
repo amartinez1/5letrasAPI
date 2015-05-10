@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls import url
 from motels import views
