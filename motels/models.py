@@ -18,6 +18,9 @@ class Town(TimeStampedModel):
     large_img = models.CharField(max_length=500, unique=False, null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
 
+    class Meta:
+        ordering = ['name']
+
     def __unicode__(self):
         return self.name
 
@@ -49,6 +52,9 @@ class Comment(TimeStampedModel):
     motel = models.ForeignKey(Motel, related_name='comments')
     body = models.CharField(max_length=250, unique=False)
     ranking = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
+
+    class Meta:
+        ordering = ['-created_date']
 
     def __unicode__(self):
         return self.body
