@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import autoslug.fields
+import versatileimagefield.fields
 
 
 class Migration(migrations.Migration):
@@ -32,7 +34,7 @@ class Migration(migrations.Migration):
                 ('ranking', models.DecimalField(null=True, max_digits=2, decimal_places=1, blank=True)),
             ],
             options={
-                'abstract': False,
+                'ordering': ['-created_date'],
             },
         ),
         migrations.CreateModel(
@@ -49,12 +51,11 @@ class Migration(migrations.Migration):
                 ('ranking', models.DecimalField(null=True, max_digits=2, decimal_places=1, blank=True)),
                 ('telephone', models.CharField(max_length=15, null=True, blank=True)),
                 ('email', models.EmailField(max_length=254, null=True, blank=True)),
-                ('thumbnail_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('small_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('medium_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('large_img', models.CharField(max_length=500, null=True, blank=True)),
+                ('image', versatileimagefield.fields.VersatileImageField(upload_to=b'files/', verbose_name=b'image', blank=True)),
+                ('image_ppoi', versatileimagefield.fields.PPOIField(default='0.5x0.5', max_length=20, editable=False)),
                 ('website', models.URLField(null=True, blank=True)),
                 ('description', models.TextField(null=True, blank=True)),
+                ('slug', autoslug.fields.AutoSlugField(unique=True, editable=False)),
                 ('amenitie', models.ManyToManyField(related_name='amenities', to='motels.Amenitie', blank=True)),
             ],
             options={
@@ -70,13 +71,12 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=50)),
                 ('latitude', models.DecimalField(null=True, max_digits=16, decimal_places=13, blank=True)),
                 ('longitude', models.DecimalField(null=True, max_digits=16, decimal_places=13, blank=True)),
-                ('thumbnail_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('small_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('medium_img', models.CharField(max_length=500, null=True, blank=True)),
-                ('large_img', models.CharField(max_length=500, null=True, blank=True)),
+                ('image', versatileimagefield.fields.VersatileImageField(upload_to=b'files/', verbose_name=b'image', blank=True)),
+                ('image_ppoi', versatileimagefield.fields.PPOIField(default='0.5x0.5', max_length=20, editable=False)),
+                ('slug', autoslug.fields.AutoSlugField(unique=True, editable=False)),
             ],
             options={
-                'abstract': False,
+                'ordering': ['name'],
             },
         ),
         migrations.AddField(

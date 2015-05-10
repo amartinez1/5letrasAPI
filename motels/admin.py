@@ -1,7 +1,7 @@
+from .models import Amenitie
 from .models import Comment
 from .models import Motel
 from .models import Town
-from .models import Amenitie
 from django.contrib import admin
 # Register your models here.
 
@@ -11,7 +11,7 @@ class MotelChoiceInLine(admin.TabularInline):
 
 class TownAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'latitude', 'longitude')
+    fields = ('name', 'latitude', 'longitude', 'image')
     list_display = ('id', 'name', 'latitude', 'longitude')
     list_display_links = ['id', 'name']
     list_filter =['name']
@@ -21,7 +21,7 @@ class TownAdmin(admin.ModelAdmin):
 class MotelAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
     fields = ('name', 'town', 'number_of_rooms', 
-              'latitude', 'longitude', 
+              'latitude', 'longitude', 'image',
               'ranking', 'telephone', 'website', 'email',
               'description', 'amenitie')
     list_display = ('id', 'name', 'latitude', 'longitude', 

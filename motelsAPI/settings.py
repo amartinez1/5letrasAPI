@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'debug_toolbar',
     'django_extensions',
+    'versatileimagefield',
 
     'motels',
     'core',
@@ -118,6 +118,43 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ),
     'PAGE_SIZE': 10
+}
+
+VERSATILEIMAGEFIELD_SETTINGS = {
+     # The amount of time, in seconds, that references to created images
+     # should be stored in the cache. Defaults to `2592000` (30 days)
+    'cache_length': 2592000,
+    # The name of the cache you'd like `django-versatileimagefield` to use.
+    # Defaults to 'versatileimagefield_cache'. If no cache exists with the name
+    # provided, the 'default' cache will be used instead.
+    'cache_name': 'versatileimagefield_cache',
+    # The save quality of modified JPEG images. More info here:
+    # http://pillow.readthedocs.org/en/latest/handbook/image-file-formats.html#jpeg
+    # Defaults to 70
+    'jpeg_resize_quality': 70,
+    # The name of the top-level folder within storage classes to save all
+    # sized images. Defaults to '__sized__'
+    'sized_directory_name': 'files/__sized__',
+    # The name of the directory to save all filtered images within.
+    # Defaults to '__filtered__':
+    'filtered_directory_name': 'files/__filtered__',
+    # The name of the directory to save placeholder images within.
+    # Defaults to '__placeholder__':
+    'placeholder_directory_name': 'files/__placeholder__',
+    # Whether or not to create new images on-the-fly. Set this to `False` for
+    # speedy performance but don't forget to 'pre-warm' to ensure they're
+    # created and available at the appropriate URL.
+    'create_images_on_demand': True
+}
+
+VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
+    'common_size': [
+        ('thumbnail_image', 'thumbnail__100x100'),
+        ('small_image', 'crop__160x120'),
+        ('medium_image', 'crop__320x240'),
+        ('large_image', 'crop__640x480'),
+        ('full_image', 'url')
+    ]
 }
 
 # For Sidebar Menu in Django 1.7 only (List of apps and models) (RECOMMENDED)
