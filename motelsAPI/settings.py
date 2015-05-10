@@ -15,6 +15,21 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_ROOT = 'assets'
+STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -25,7 +40,6 @@ SECRET_KEY = '0-3lhlvovx6&nkau1+dr9npw47@q0*#^48p)t!1b**bla9ejc)'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -104,12 +118,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-STATIC_URL = '/static/'
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
@@ -134,13 +142,13 @@ VERSATILEIMAGEFIELD_SETTINGS = {
     'jpeg_resize_quality': 70,
     # The name of the top-level folder within storage classes to save all
     # sized images. Defaults to '__sized__'
-    'sized_directory_name': 'files/__sized__',
+    'sized_directory_name': '__sized__',
     # The name of the directory to save all filtered images within.
     # Defaults to '__filtered__':
-    'filtered_directory_name': 'files/__filtered__',
+    'filtered_directory_name': '__filtered__',
     # The name of the directory to save placeholder images within.
     # Defaults to '__placeholder__':
-    'placeholder_directory_name': 'files/__placeholder__',
+    'placeholder_directory_name': '__placeholder__',
     # Whether or not to create new images on-the-fly. Set this to `False` for
     # speedy performance but don't forget to 'pre-warm' to ensure they're
     # created and available at the appropriate URL.
@@ -150,9 +158,9 @@ VERSATILEIMAGEFIELD_SETTINGS = {
 VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
     'common_size': [
         ('thumbnail_image', 'thumbnail__100x100'),
-        ('small_image', 'crop__160x120'),
-        ('medium_image', 'crop__320x240'),
-        ('large_image', 'crop__640x480'),
+        ('small_image', 'thumbnail__160x120'),
+        ('medium_image', 'thumbnail__320x240'),
+        ('large_image', 'thumbnail__640x480'),
         ('full_image', 'url')
     ]
 }
@@ -161,5 +169,7 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 from django.conf import global_settings
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
 )
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
