@@ -49,6 +49,18 @@ class MotelRetrieve(generics.RetrieveAPIView):
     queryset = Motel.objects.all()
     serializer_class = MotelRetrieveSerializer
 
+class MotelRetrieveByTown(generics.ListAPIView):
+    """
+    Retrieves a list of all motels by townId
+    """
+    serializer_class = MotelListSerializer
+
+    def get_queryset(self):
+        queryset = Motel.objects.all()
+        town_id = self.kwargs['townId']
+        queryset = queryset.filter(town__id=town_id)
+        return queryset 
+
 class AmenitiesList(generics.ListAPIView):
     """
     Retrieves a list of all amenities
