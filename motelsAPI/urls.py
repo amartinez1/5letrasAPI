@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('core.urls')),
     url(r'^', include('motels.urls')),
+    url(r'^', include('towns.urls')),
 ]

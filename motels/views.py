@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 
 from rest_framework.renderers import JSONRenderer
@@ -7,12 +6,10 @@ from rest_framework.renderers import JSONRenderer
 from .models import Amenitie
 from .models import Comment
 from .models import Motel
-from .models import Town
 from .serializers import AmenitiesSerializer
 from .serializers import CommentSerializer
 from .serializers import MotelListSerializer
 from .serializers import MotelRetrieveSerializer
-from .serializers import TownSerializer
 
 class JSONResponse(HttpResponse):
     """
@@ -22,13 +19,6 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
-class TownList(generics.ListAPIView):
-    """
-    Retrieves a list of all Towns
-    """
-    queryset = Town.objects.all()
-    serializer_class = TownSerializer
 
 class MotelList(generics.ListAPIView):
     """
