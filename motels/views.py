@@ -25,7 +25,7 @@ class JSONResponse(HttpResponse):
 
 class TownList(generics.ListAPIView):
     """
-    retrieves a list of all Towns
+    Retrieves a list of all Towns
     """
     queryset = Town.objects.all()
     serializer_class = TownSerializer
