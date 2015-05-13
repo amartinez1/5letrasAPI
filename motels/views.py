@@ -6,8 +6,8 @@ from rest_framework.renderers import JSONRenderer
 from .models import Amenitie
 from .models import Comment
 from .models import Motel
-from .serializers import AmenitiesSerializer
-from .serializers import CommentSerializer
+from .serializers import AmenitiesListSerializer
+from .serializers import CommentsListSerializer
 from .serializers import MotelListSerializer
 from .serializers import MotelRetrieveSerializer
 
@@ -51,11 +51,11 @@ class AmenitiesList(generics.ListAPIView):
     Retrieves a list of all amenities
     """
     queryset = Amenitie.objects.all()
-    serializer_class = AmenitiesSerializer
+    serializer_class = AmenitiesListSerializer
 
 class CommentList(generics.ListCreateAPIView):
     """
     Retrieves a list of all Comments
     """
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = CommentsListSerializer

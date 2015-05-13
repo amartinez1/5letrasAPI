@@ -24,7 +24,7 @@ class Motel(TimeStampedModel):
     email = models.EmailField(blank=True, null=True, unique=False)
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    amenitie = models.ManyToManyField('motels.Amenitie', related_name='amenities', blank=True)
+    amenities = models.ManyToManyField('motels.Amenitie', related_name='amenities', blank=True)
 
     def __unicode__(self):
         return self.name

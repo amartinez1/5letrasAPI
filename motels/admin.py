@@ -4,9 +4,14 @@ from .models import Amenitie
 from .models import Comment
 from .models import Motel
 from .models import MotelImage
+from rooms.models import Room
 
 class MotelChoiceInLine(admin.TabularInline):
     model = Motel
+    extra = 3
+
+class MotelRoomsInLine(admin.TabularInline):
+    model = Room
     extra = 3
 
 class MotelsImageChoiceInLine(admin.TabularInline):
@@ -16,17 +21,16 @@ class MotelsImageChoiceInLine(admin.TabularInline):
 class MotelAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
     fields = ('name', 'town', 'number_of_rooms', 
-              'latitude', 'longitude',
-              'ranking', 'telephone', 'website', 
-              'address', 'address2', 'email',
-              'description', 'amenitie')
+              'latitude', 'longitude', 'telephone', 
+              'website', 'address', 'address2', 
+              'email','description', 'amenities')
     list_display = ('id', 'name', 'latitude', 'longitude', 
                     'ranking', 'number_of_rooms', 'email', 
                     'address', 'updated_date')
     list_display_links = ['id', 'name', 'ranking']
     list_filter =['name','ranking']
     search_fields = ['name', 'latitude', 'longitude', 'ranking']
-    inlines = [MotelsImageChoiceInLine]
+    inlines = [MotelsImageChoiceInLine, MotelRoomsInLine]
 
 class MotelImageAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"

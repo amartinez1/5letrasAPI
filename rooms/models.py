@@ -5,23 +5,22 @@ from django.db import models
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
 
-class Town(TimeStampedModel):
+class Room(TimeStampedModel):
+    motel = models.ForeignKey('motels.Motel', related_name='rooms')
     name = models.CharField(max_length=50, unique=False)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
-    latitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
-    longitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
-
-    class Meta:
-        ordering = ['name']
+    price = models.IntegerField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    room_amenities = models.ManyToManyField('motels.Amenitie', related_name='room_amenities', blank=True)
 
     def __unicode__(self):
         return self.name
 
-class TownImage(TimeStampedModel):
-    towns = models.ForeignKey('towns.Town', related_name='images')
+class RoomImage(TimeStampedModel):
+    motels = models.ForeignKey('rooms.Room', related_name='images')
     image = VersatileImageField(
-        'Towns Image',
-        upload_to='uploaded_files/motels/' ,
+        'Rooms Image',
+        upload_to='uploaded_files/Rooms/' ,
         ppoi_field='image_ppoi',
         blank=True
     )

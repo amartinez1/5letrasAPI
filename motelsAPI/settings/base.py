@@ -47,9 +47,10 @@ INSTALLED_APPS = (
     'versatileimagefield',
     'storages',
 
-    # apps
-    'motels',
+    # Apps
     'towns',
+    'motels',
+    'rooms',
     'core',
 )
 
