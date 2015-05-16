@@ -1,8 +1,8 @@
 import django_filters
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from rest_framework import generics
-from rest_framework.renderers import JSONRenderer
 from rest_framework import filters
 
 from .models import Amenitie
@@ -12,15 +12,6 @@ from .serializers import AmenitiesListSerializer
 from .serializers import CommentsListSerializer
 from .serializers import MotelListSerializer
 from .serializers import MotelRetrieveSerializer
-
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
 
 class MotelFilter(django_filters.FilterSet):
     """
@@ -48,10 +39,15 @@ class MotelList(generics.ListAPIView):
 
 class MotelRetrieve(generics.RetrieveAPIView):
     """
-    Retrieves a motel by its id 
+    Retrieves a motel by its slug 
     """
-    queryset = Motel.objects.filter(status=True, comments__status=True)
     serializer_class = MotelRetrieveSerializer
+    lookup_field = 'slug'
+
+    def get_object(self):
+        queryset = Motel.objects.filter(status=True, comments__status=True)
+        motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
+        return motel
 
 class AmenitiesList(generics.ListAPIView):
     """

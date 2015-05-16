@@ -12,7 +12,7 @@ class TownImagesSerializer(serializers.ModelSerializer):
       model = TownImage
       fields = ('id', 'image')
 
-class TownSerializer(serializers.ModelSerializer):
+class TownListSerializer(serializers.ModelSerializer):
     images = TownImagesSerializer(many=True, read_only=True)
 
     class Meta:

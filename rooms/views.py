@@ -1,7 +1,4 @@
-from django.http import HttpResponse
 from rest_framework import generics
-
-from rest_framework.renderers import JSONRenderer
 
 from .models import Room
 from .serializers import RoomListSerializer
