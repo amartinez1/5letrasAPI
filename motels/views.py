@@ -28,9 +28,24 @@ class MotelFilter(django_filters.FilterSet):
 
 class MotelList(generics.ListAPIView):
     """
-    Retrieves a list of all motels
+    #Retrieves a list of all motels
+    ---
+    #### 1. Filters Values
+        - Filters by town, amenities, min_price, max_price and rating
+        - example: ?town=Guaynabo, ?amenities=wifi, ?rating=5
+    #####Link example: [?town=Guaynabo](?town=Guaynabo)
+    ---
+    #### 2. Ordering Values
+        - Ordering by name, town__name, amenities__name, rating, price
+        - example: ?ordering=name
+    #####Link example: [?ordering=name](?ordering=name)
+    ---
+    #### 3. Search Values
+        - Search keyword starting with motel name
+        - example: ?search=MotelName   
+    #####Link example: [?search=test](?search=test)
     """
-    queryset = Motel.objects.filter(status=True, comments__status=True)
+    queryset = Motel.objects.filter(status=True)
     serializer_class = MotelListSerializer
     filter_class = MotelFilter
     filter_backends = (filters.OrderingFilter, filters.SearchFilter)
