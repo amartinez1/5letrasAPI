@@ -13,7 +13,7 @@ class TownAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'latitude', 'longitude')
     list_display_links = ['id', 'name']
     list_filter =['name']
-    search_fields = ['name', 'latitude', 'longitude']
+    search_fields = ['id', 'name', 'latitude', 'longitude']
     inlines = [TownImageChoiceInLine]
 
 # Register your models here.

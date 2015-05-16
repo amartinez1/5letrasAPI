@@ -7,27 +7,43 @@ from towns.models import Town
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
 
+
+#Active values
+INACTIVE = False
+ACTIVE = True
+STATUS = (
+    (ACTIVE, ('Active')),
+    (INACTIVE, ('Inactive')),
+)
+    
+
 class Motel(TimeStampedModel):
     town = models.ForeignKey('towns.Town', related_name='town')
     name = models.CharField(max_length=50, unique=False)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
     latitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
     longitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
-    number_of_rooms = models.IntegerField(blank=True, null=True, unique=False)
     price_range = models.IntegerField(blank=True, null=True)
-    ranking = models.DecimalField(
-        max_digits=2, decimal_places=1, blank=True, null=True)
-    address = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    address2 = models.CharField(max_length=255, blank=True, null=True, unique=True)
+    rating = models.DecimalField(
+        max_digits=2, decimal_places=1, 
+        blank=True, editable=False, default=0)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    address2 = models.CharField(max_length=255, blank=True, null=True)
     telephone = models.CharField(
         max_length=15, unique=False, blank=True, null=True)
     email = models.EmailField(blank=True, null=True, unique=False)
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    amenities = models.ManyToManyField('motels.Amenitie', related_name='amenities', blank=True)
+    status = models.BooleanField(choices=STATUS, default=ACTIVE)
+    amenities = models.ManyToManyField('motels.Amenitie', related_name='amenities',
+        blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def get_percent(self):
+        return self.rating*100
+
 
 class MotelImage(TimeStampedModel):
     motels = models.ForeignKey('motels.Motel', related_name='images')
@@ -39,10 +55,12 @@ class MotelImage(TimeStampedModel):
     )
     image_ppoi = PPOIField()
 
+
 class Comment(TimeStampedModel):
     motel = models.ForeignKey('motels.Motel', related_name='comments')
     body = models.CharField(max_length=250, unique=False)
-    ranking = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
+    status = models.BooleanField(choices=STATUS, default=ACTIVE)
 
     class Meta:
         ordering = ['-created_date']

@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'rest_framework',
     'versatileimagefield',
     'storages',
+    'django_filters',
+    #'rest_framework_swagger',
 
     # Apps
     'towns',
@@ -111,6 +113,7 @@ USE_L10N = True
 USE_TZ = True
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),

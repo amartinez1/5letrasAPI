@@ -18,7 +18,7 @@ class CommentsListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'motel', 'body', 'ranking', 
+        fields = ('id', 'motel', 'body', 'rating', 
                   'created_date')
         ordering = ['id']
 
@@ -36,9 +36,9 @@ class MotelListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Motel
         fields = ('id', 'name', 'slug', 'town',
-                  'latitude', 'longitude', 'number_of_rooms',
-                  'price_range', 'ranking', 'images', 'address', 
-                  'address2', 'email', 'telephone', 'website', 
+                  'latitude', 'longitude', 'price_range', 
+                  'rating', 'images', 'address', 'address2', 
+                  'email', 'telephone', 'website', 
                   'description', 'amenities')
 
 class MotelRetrieveSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class MotelRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Motel
         fields = ('id', 'name', 'slug', 'town',
-                  'latitude', 'longitude', 'number_of_rooms',
-                  'price_range', 'ranking', 'images', 'address',
-                  'email', 'telephone', 'website', 'description', 
-                  'rooms', 'amenities', 'comments')
+                  'latitude', 'longitude', 'price_range', 'rating', 
+                  'images', 'address', 'email', 'telephone', 
+                  'website', 'description', 'rooms', 'amenities', 
+                  'comments')

@@ -20,16 +20,14 @@ class MotelsImageChoiceInLine(admin.TabularInline):
 
 class MotelAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'town', 'number_of_rooms', 
-              'latitude', 'longitude', 'telephone', 
-              'website', 'address', 'address2', 
-              'email','description', 'amenities')
-    list_display = ('id', 'name', 'latitude', 'longitude', 
-                    'ranking', 'number_of_rooms', 'email', 
-                    'address', 'updated_date')
-    list_display_links = ['id', 'name', 'ranking']
-    list_filter =['name','ranking']
-    search_fields = ['name', 'latitude', 'longitude', 'ranking']
+    fields = ('name', 'town', 'latitude', 'longitude', 
+              'telephone', 'website', 'address', 'address2', 
+              'email','description', 'status','amenities')
+    list_display = ('id', 'town', 'name', 'latitude', 'longitude', 
+                    'rating', 'email', 'address', 'status', 'updated_date')
+    list_display_links = ['id', 'name', 'status']
+    list_filter =['name','rating']
+    search_fields = ['id', 'name', 'latitude', 'longitude', 'status', 'rating']
     inlines = [MotelsImageChoiceInLine, MotelRoomsInLine]
 
 class MotelImageAdmin(admin.ModelAdmin):
@@ -43,11 +41,12 @@ class MotelImageAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('motel', 'body', 'ranking')
-    list_display = ('id', 'body', 'ranking', 'created_date')
-    list_display_links = ['id', 'body', 'ranking']
-    list_filter =['body','ranking']
-    search_fields = ['body', 'ranking']
+    fields = ('motel', 'body', 'rating', 'status')
+    list_display = ('id', 'motel','body', 'rating', 
+                    'status', 'created_date')
+    list_display_links = ['id', 'body', 'status']
+    list_filter =['body','rating', 'status']
+    search_fields = ['id', 'body', 'rating']
 
 class AmenitieAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
@@ -55,7 +54,7 @@ class AmenitieAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ['id', 'name']
     list_filter =['name']
-    search_fields = ['name']
+    search_fields = ['id', 'name']
 
 admin.site.register(Motel, MotelAdmin)
 admin.site.register(MotelImage, MotelImageAdmin)
