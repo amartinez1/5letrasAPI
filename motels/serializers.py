@@ -21,7 +21,7 @@ class CommentsListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('id', 'motel', 'body', 'rating', 
+        fields = ('id', 'motel', 'body', 'rating',
                   'created_date')
         ordering = ['id']
 

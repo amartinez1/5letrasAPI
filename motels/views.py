@@ -86,7 +86,7 @@ class MotelRetrieve(generics.RetrieveAPIView):
     lookup_field = 'slug'
 
     def get_object(self):
-        queryset = Motel.objects.filter(status=True, comments__status=True)
+        queryset = Motel.objects.filter(status=True)
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel
 
