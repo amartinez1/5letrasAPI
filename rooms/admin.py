@@ -9,13 +9,15 @@ class RoomImageChoiceInLine(admin.TabularInline):
 
 class RoomAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('motel', 'name', 'price',
-    		  'description', 'room_amenities')
-    list_display = ('id', 'name', 'motel', 
-                    'price', 'updated_date')
-    list_display_links = ['id', 'name']
-    list_filter =['name','motel', 'price']
-    search_fields = ['id', 'name', 'motel', 'price']
+    fields = ('motel', 'name', 'price', 'description', 
+              'status', 'room_amenities')
+    list_display = ('id', 'name', 'motel', 'price',
+                    'status','updated_date')
+    list_display_links = ['id', 'name', 'status']
+    list_filter =['motel', 'price', 'room_amenities',
+                  'status']
+    search_fields = ['id', 'name', 'slug', 'motel', 'price', 
+                     'room_amenities', 'status']
     inlines = [RoomImageChoiceInLine]
 
 class RoomImageAdmin(admin.ModelAdmin):

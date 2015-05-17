@@ -98,6 +98,20 @@ class AmenitiesList(generics.ListAPIView):
     queryset = Amenitie.objects.all()
     serializer_class = AmenitiesListSerializer
 
+
+class AmenitiesRetrieve(generics.RetrieveAPIView):
+    """
+    Retrieves a motel by its slug 
+    """
+    serializer_class = AmenitiesListSerializer
+    lookup_field = 'slug'
+
+    def get_object(self):
+        queryset = Amenitie.objects.filter()
+        amenities = get_object_or_404(queryset, slug=self.kwargs['amenities_slug'])
+        return amenities
+
+
 class CommentList(generics.ListCreateAPIView):
     """
     Retrieves a list of all Comments

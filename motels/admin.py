@@ -26,8 +26,9 @@ class MotelAdmin(admin.ModelAdmin):
     list_display = ('id', 'town', 'name', 'latitude', 'longitude', 
                     'rating', 'email', 'address', 'status', 'updated_date')
     list_display_links = ['id', 'name', 'status']
-    list_filter =['name','rating']
-    search_fields = ['id', 'name', 'latitude', 'longitude', 'status', 'rating']
+    list_filter =['rating', 'status', 'amenities']
+    search_fields = ['id', 'name', 'slug', 'latitude', 
+                     'longitude', 'status', 'rating']
     inlines = [MotelsImageChoiceInLine, MotelRoomsInLine]
 
 class MotelImageAdmin(admin.ModelAdmin):
@@ -45,16 +46,16 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'motel','body', 'rating', 
                     'status', 'created_date')
     list_display_links = ['id', 'body', 'status']
-    list_filter =['body','rating', 'status']
-    search_fields = ['id', 'body', 'rating']
+    list_filter =['rating', 'status']
+    search_fields = ['id', 'motel', 'body', 'rating']
 
 class AmenitieAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
     fields = ('name',)
-    list_display = ('id', 'name')
+    list_display = ('id', 'name', 'created_date')
     list_display_links = ['id', 'name']
     list_filter =['name']
-    search_fields = ['id', 'name']
+    search_fields = ['id', 'name', 'slug']
 
 admin.site.register(Motel, MotelAdmin)
 admin.site.register(MotelImage, MotelImageAdmin)

@@ -11,6 +11,7 @@ class Room(TimeStampedModel):
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
     price = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    status = models.BooleanField(default=True)
     room_amenities = models.ManyToManyField('motels.Amenitie', related_name='room_amenities', blank=True)
 
     def __unicode__(self):

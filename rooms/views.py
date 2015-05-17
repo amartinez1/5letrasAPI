@@ -8,5 +8,5 @@ class RoomList(generics.ListAPIView):
     """
     Retrieves a list of all motels
     """
-    queryset = Room.objects.filter(motel__status=True)
+    queryset = Room.objects.filter(motel__status=True, status=True)
     serializer_class = RoomListSerializer
