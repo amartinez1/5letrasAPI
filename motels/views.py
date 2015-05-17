@@ -30,27 +30,53 @@ class MotelList(generics.ListAPIView):
     """
     #Retrieves a list of all motels
     ---
-    #### 1. Filters Values
-        - Filters by town, amenities, min_price, max_price and rating
-        - example: ?town=Guaynabo, ?amenities=wifi, ?rating=5
-    #####Link example: [?town=Guaynabo](?town=Guaynabo)
+    ### 1. Ordering Values Documentation
+    > Order by name, town name, amenities name, rating and price
+
+    - ####Examples:
+        *  #####Ordering by name: [?ordering=name](?ordering=name)
+        *  #####Ordering by town: [?ordering=town__name](?ordering=town__name)
+        *  #####Ordering by amenities: [?ordering=amenities__name](?ordering=amenities__name)
+        *  #####Ordering by rating: [?ordering=rating](?ordering=rating)
+        *  #####Ordering by price: [?ordering=price](?ordering=price)
+
+    The API may also specify reverse orderings by prefixing the field name with '-', like so:
+        
+        - http://example.com/api/motels?ordering=-name
+    
+    Multiple orderings may also be specified:
+        
+        - http://example.com/api/motels?ordering=name,town__name
     ---
-    #### 2. Ordering Values
-        - Ordering by name, town__name, amenities__name, rating, price
-        - example: ?ordering=name
-    #####Link example: [?ordering=name](?ordering=name)
+    ### 2. Search Values Documentation
+    > Search by motel name keyword
+
+    - ####Example:
+        *  #####Search by Motel Name: [?search=MotelName](?search=MotelName)
     ---
-    #### 3. Search Values
-        - Search keyword starting with motel name
-        - example: ?search=MotelName   
-    #####Link example: [?search=test](?search=test)
+    """
+    queryset = Motel.objects.filter(status=True)
+    serializer_class = MotelListSerializer
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter)
+    ordering_fields = ('name', 'town__name', 'amenities__name', 'rating', 'price')
+    search_fields = ('^name', )
+
+class MotelListFilters(generics.ListAPIView):
+    """
+    #Retrieves a list of all motels
+    ---
+    ###Filters Values Documentation
+    > Filters by town, amenities, min_price, max_price and rating.
+
+    - ####Examples:
+        *  #####Filter by town: [?town=Guaynabo](?town=Guaynabo)
+        *  #####Filter by amenities: [?amenities=Wifi](?amenities=Wifi)
+        *  #####Filter by rating: [?rating=5](?rating=5)
     """
     queryset = Motel.objects.filter(status=True)
     serializer_class = MotelListSerializer
     filter_class = MotelFilter
-    filter_backends = (filters.OrderingFilter, filters.SearchFilter)
-    ordering_fields = ('name', 'town__name', 'amenities__name', 'rating', 'price')
-    search_fields = ('^name', )
+
 
 class MotelRetrieve(generics.RetrieveAPIView):
     """
