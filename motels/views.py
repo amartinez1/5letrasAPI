@@ -90,6 +90,7 @@ class MotelRetrieve(generics.RetrieveAPIView):
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel
 
+
 class AmenitiesList(generics.ListAPIView):
     """
     Retrieves a list of all amenities
