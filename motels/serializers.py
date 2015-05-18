@@ -13,7 +13,7 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 class AmenitiesListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Amenitie
-        fields = ('id', 'slug', 'name')
+        fields = ('id', 'name', 'slug')
 
 class CommentsListSerializer(serializers.ModelSerializer):
     created_date = serializers.DateTimeField(format='%d/%m/%Y %H:%M', 

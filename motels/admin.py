@@ -26,7 +26,7 @@ class MotelAdmin(admin.ModelAdmin):
     list_display = ('id', 'town', 'name', 'latitude', 'longitude', 
                     'rating', 'email', 'address', 'status', 'updated_date')
     list_display_links = ['id', 'name', 'status']
-    list_filter =['rating', 'status', 'amenities']
+    list_filter =['rating', 'status', 'amenities', 'town']
     search_fields = ['id', 'name', 'slug', 'latitude', 
                      'longitude', 'status', 'rating']
     inlines = [MotelsImageChoiceInLine, MotelRoomsInLine]
