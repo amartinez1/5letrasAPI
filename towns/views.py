@@ -5,12 +5,15 @@ from rest_framework import generics
 from .models import Town
 from .serializers import TownListSerializer
 
-class TownList(generics.ListAPIView):
+
+class TownList(generics.ListCreateAPIView):
     """
     Retrieves a list of all Towns
     """
     queryset = Town.objects.all()
     serializer_class = TownListSerializer
+    paginate_by = 100
+
 
 class TownRetrieve(generics.RetrieveAPIView):
     """

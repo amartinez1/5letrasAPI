@@ -1,15 +1,12 @@
 from .models import Room
 from .models import RoomImage
-from motels.models import Amenitie
+from amenities.models import Amenitie
+from amenities.serializers import AmenitiesListSerializer
 
 from rest_framework import serializers
 
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
-class AmenitiesListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Amenitie
-        fields = ('id', 'name')
 
 class RoomImagesSerializer(serializers.ModelSerializer):
   image = VersatileImageFieldSerializer(sizes='common_size')

@@ -1,29 +1,19 @@
-from .models import Amenitie
-from .models import Comment
+from django.core.paginator import Paginator
+
 from .models import Motel
 from .models import MotelImage
-
-from towns.serializers import TownListSerializer
+from amenities.models import Amenitie
+from comments.models import Comment
+from rooms.models import Room
 from rooms.serializers import RoomListSerializer
+from towns.serializers import TownListSerializer
+from amenities.serializers import AmenitiesListSerializer
+from comments.serializers import CommentsListSerializer
 
+from rest_framework import pagination
 from rest_framework import serializers
-
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
-class AmenitiesListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Amenitie
-        fields = ('id', 'name', 'slug')
-
-class CommentsListSerializer(serializers.ModelSerializer):
-    created_date = serializers.DateTimeField(format='%d/%m/%Y %H:%M', 
-                                             required=False, read_only=True)
-
-    class Meta:
-        model = Comment
-        fields = ('id', 'motel', 'body', 'rating',
-                  'created_date')
-        ordering = ['id']
 
 class MotelImagesSerializer(serializers.ModelSerializer):
   image = VersatileImageFieldSerializer(sizes='common_size')
@@ -31,6 +21,7 @@ class MotelImagesSerializer(serializers.ModelSerializer):
   class Meta:
       model = MotelImage
       fields = ('id', 'image')
+
 
 class MotelListSerializer(serializers.ModelSerializer):
     images = MotelImagesSerializer(many=True, read_only=True)
@@ -45,12 +36,35 @@ class MotelListSerializer(serializers.ModelSerializer):
                   'email', 'telephone', 'website', 
                   'description', 'amenities')
 
+
+class CustomPagination(pagination.PageNumberPagination):
+    def get_paginated_response(self, data):
+        return Response({
+            'links': {
+               'next': self.get_next_link(),
+               'previous': self.get_previous_link()
+            },
+            'count': self.page.paginator.count,
+            'results': data
+        })
+
 class MotelRetrieveSerializer(serializers.ModelSerializer):
-    comments = CommentsListSerializer(many=True, read_only=True)
-    rooms = RoomListSerializer(many=True, read_only=True)
+    comments = serializers.SerializerMethodField('get_comments_list')
+    rooms = serializers.SerializerMethodField('get_rooms_list')
     images = MotelImagesSerializer(many=True, read_only=True)
     amenities = AmenitiesListSerializer(many=True, read_only=True)
     town = TownListSerializer()
+
+    def get_comments_list(self, motel):
+        queryset = Comment.objects.filter(status=True, motel=motel)
+        # pagination = queryset.page(1)
+        serializer = CommentsListSerializer(instance=queryset, many=True)
+        return serializer.data
+
+    def get_rooms_list(self, motel):
+        queryset = Room.objects.filter(status=True, motel=motel)
+        serializer = RoomListSerializer(instance=queryset, many=True)
+        return serializer.data
 
     class Meta:
         model = Motel
@@ -59,3 +73,4 @@ class MotelRetrieveSerializer(serializers.ModelSerializer):
                   'images', 'address', 'email', 'telephone', 
                   'website', 'description', 'rooms', 'amenities', 
                   'comments')
+

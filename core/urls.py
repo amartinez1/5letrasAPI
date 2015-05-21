@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls import url
-from core import views
+from . import views
+
 
 urlpatterns = [
 	url(r'^api/$', views.APIRoot.as_view()),

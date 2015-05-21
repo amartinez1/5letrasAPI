@@ -1,7 +1,7 @@
-from autoslug import AutoSlugField
 from core.models import TimeStampedModel
 from django.db import models
 
+from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
 

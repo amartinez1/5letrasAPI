@@ -1,9 +1,9 @@
-from autoslug import AutoSlugField
 from core.models import TimeStampedModel
 from django.db import models
 
 from towns.models import Town
 
+from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
 
@@ -24,7 +24,7 @@ class Motel(TimeStampedModel):
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
-    amenities = models.ManyToManyField('motels.Amenitie', related_name='amenities',
+    amenities = models.ManyToManyField('amenities.Amenitie', related_name='amenities',
         blank=True)
 
     def __unicode__(self):
@@ -43,24 +43,3 @@ class MotelImage(TimeStampedModel):
         blank=True
     )
     image_ppoi = PPOIField()
-
-
-class Comment(TimeStampedModel):
-    motel = models.ForeignKey('motels.Motel', related_name='comments')
-    body = models.CharField(max_length=250, unique=False)
-    rating = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
-    status = models.BooleanField(default=True)
-
-    class Meta:
-        ordering = ['-created_date']
-
-    def __unicode__(self):
-        return self.body
-
-
-class Amenitie(TimeStampedModel):
-    name = models.CharField(max_length=50, unique=True)
-    slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
-
-    def __unicode__(self):
-        return self.name

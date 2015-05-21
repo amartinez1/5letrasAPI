@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^', include('motels.urls')),
     url(r'^', include('towns.urls')),
     url(r'^', include('rooms.urls')),
+    url(r'^', include('amenities.urls')),
+    url(r'^', include('comments.urls')),
 ]

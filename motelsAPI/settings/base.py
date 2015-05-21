@@ -54,6 +54,8 @@ INSTALLED_APPS = (
     'motels',
     'rooms',
     'core',
+    'amenities',
+    'comments',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,7 +78,6 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
 )
-
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
 # CORS settings
@@ -120,7 +121,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 15,
 }
 
 VERSATILEIMAGEFIELD_SETTINGS = {
