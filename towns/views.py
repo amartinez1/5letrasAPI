@@ -22,7 +22,8 @@ class TownRetrieve(generics.RetrieveAPIView):
     serializer_class = TownListSerializer
     lookup_field = 'slug'
 
+
     def get_object(self):
-        queryset = Town.objects.filter(status=True)
+        queryset = Town.objects.get(status=True)
         town = get_object_or_404(queryset, slug=self.kwargs['towns_slug'])
         return town

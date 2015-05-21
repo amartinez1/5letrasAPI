@@ -40,6 +40,7 @@ class MotelList(generics.ListAPIView):
         *  #####Ordering by amenities: [?ordering=amenities__name](?ordering=amenities__name)
         *  #####Ordering by rating: [?ordering=rating](?ordering=rating)
         *  #####Ordering by price: [?ordering=price](?ordering=price)
+        *  #####Ordering by price: [?ordering=created_date](?ordering=created_date)
 
     The API may also specify reverse orderings by prefixing the field name with '-', like so:
         
@@ -59,7 +60,8 @@ class MotelList(generics.ListAPIView):
     queryset = Motel.objects.filter(status=True, town__status=True)
     serializer_class = MotelListSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter)
-    ordering_fields = ('name', 'town__name', 'amenities__name', 'rating', 'price')
+    ordering_fields = ('name', 'town__name', 'amenities__name',
+                       'rating', 'price', 'created_date')
     search_fields = ('^name', )
 
 

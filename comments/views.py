@@ -14,14 +14,14 @@ class CommentList(generics.ListCreateAPIView):
     serializer_class = CommentsListSerializer
 
 
-class CommentRetrieve(generics.RetrieveAPIView):
+class CommentMotelListFilter(generics.ListAPIView):
     """
-    Retrieves a Town by its slug 
+    Retrieves a motel comments listt by its slug 
     """
     serializer_class = CommentsListSerializer
 
 
-    def get_object(self):
-        queryset = Comment.objects.filter(motel__status=True, status=True)
-        comment = get_object_or_404(queryset, slug=self.kwargs['comments_id'])
-        return comment
+    def get_queryset(self):
+        queryset = Comment.objects.filter(status=True, motel__status=True, 
+                                          motel__slug=self.kwargs['motel_slug'])
+        return queryset
