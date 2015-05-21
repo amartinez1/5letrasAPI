@@ -10,7 +10,8 @@ class CommentList(generics.ListCreateAPIView):
     """
     Retrieves a list of all Comments
     """
-    queryset = Comment.objects.filter(motel__status=True, status=True)
+    queryset = Comment.objects.filter(status=True, motel__status=True, 
+                                      motel__town__status=True)
     serializer_class = CommentsListSerializer
 
 
@@ -23,5 +24,6 @@ class CommentMotelListFilter(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Comment.objects.filter(status=True, motel__status=True, 
+                                          motel__town__status=True,
                                           motel__slug=self.kwargs['motel_slug'])
         return queryset
