@@ -6,11 +6,11 @@ from .models import Town
 from .serializers import TownListSerializer
 
 
-class TownList(generics.ListCreateAPIView):
+class TownList(generics.ListAPIView):
     """
     Retrieves a list of all Towns
     """
-    queryset = Town.objects.all()
+    queryset = Town.objects.filter(status=True)
     serializer_class = TownListSerializer
     paginate_by = 100
 
@@ -23,6 +23,6 @@ class TownRetrieve(generics.RetrieveAPIView):
     lookup_field = 'slug'
 
     def get_object(self):
-        queryset = Town.objects.all()
+        queryset = Town.objects.filter(status=True)
         town = get_object_or_404(queryset, slug=self.kwargs['towns_slug'])
         return town

@@ -26,6 +26,7 @@ class MotelFilter(django_filters.FilterSet):
         model = Motel
         fields = ['town', 'amenities', 'min_price', 'max_price', 'rating']
 
+
 class MotelList(generics.ListAPIView):
     """
     #Retrieves a list of all motels
@@ -55,11 +56,12 @@ class MotelList(generics.ListAPIView):
         *  #####Search by Motel Name: [?search=MotelName](?search=MotelName)
     ---
     """
-    queryset = Motel.objects.filter(status=True)
+    queryset = Motel.objects.filter(status=True, town__status=True)
     serializer_class = MotelListSerializer
     filter_backends = (filters.OrderingFilter, filters.SearchFilter)
     ordering_fields = ('name', 'town__name', 'amenities__name', 'rating', 'price')
     search_fields = ('^name', )
+
 
 class MotelListFilters(generics.ListAPIView):
     """
@@ -73,7 +75,7 @@ class MotelListFilters(generics.ListAPIView):
         *  #####Filter by amenities: [?amenities=Wifi](?amenities=Wifi)
         *  #####Filter by rating: [?rating=5](?rating=5)
     """
-    queryset = Motel.objects.filter(status=True)
+    queryset = Motel.objects.filter(status=True, town__status=True)
     serializer_class = MotelListSerializer
     filter_class = MotelFilter
 
@@ -86,6 +88,6 @@ class MotelRetrieve(generics.RetrieveAPIView):
     lookup_field = 'slug'
 
     def get_object(self):
-        queryset = Motel.objects.filter(status=True)
+        queryset = Motel.objects.filter(status=True, town__status=True)
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel

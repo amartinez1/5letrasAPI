@@ -10,6 +10,7 @@ class Town(TimeStampedModel):
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
     latitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
     longitude = models.DecimalField(max_digits=16, decimal_places=13, blank=True, null=True)
+    status = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['name']

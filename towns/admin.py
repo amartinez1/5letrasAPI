@@ -9,10 +9,12 @@ class TownImageChoiceInLine(admin.TabularInline):
 
 class TownAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'latitude', 'longitude')
-    list_display = ('id', 'name', 'latitude', 'longitude')
-    list_display_links = ['id', 'name']
-    list_filter =['name']
+    fields = ('name', 'latitude', 'longitude', 
+              'status')
+    list_display = ('id', 'name', 'latitude', 
+                    'longitude', 'status')
+    list_display_links = ['id', 'name', 'status']
+    list_filter =['name', 'status']
     search_fields = ['id', 'name', 'latitude', 'longitude']
     inlines = [TownImageChoiceInLine]
 
