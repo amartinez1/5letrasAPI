@@ -27,7 +27,6 @@ class Motel(TimeStampedModel):
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
-
     amenities = models.ManyToManyField('amenities.Amenitie', related_name='amenities',
                                        blank=True)
 
