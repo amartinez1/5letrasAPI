@@ -14,10 +14,10 @@ class Comment(TimeStampedModel):
     def __unicode__(self):
         return self.body
 
-    def save(self, *args, **kwargs):
-        motel = self.motel
-        print "Test!!! rating {0}, {1}".format(motel.rating, self.rating)
-        motel.user_count += 1
-        motel.rating += self.rating
-        motel.save()
-        super(Comment, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     motel = self.motel
+    #     print "Test!!! rating {0}, {1}".format(motel.rating, self.rating)
+    #     motel.user_count += 1
+    #     motel.rating += self.rating
+    #     motel.save()
+    #     super(Comment, self).save(*args, **kwargs)

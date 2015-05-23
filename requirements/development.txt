@@ -1,4 +1,5 @@
 -r base.txt
 
+django-autofixture==0.10.0
 django-extensions==1.5.3
 django-debug-toolbar==1.3.0

@@ -1,4 +1,4 @@
-Django==1.8.1
+Django==1.8.2
 djangorestframework==3.1.1
 django-versatileimagefield==1.0
 django-cors-headers==1.0.0

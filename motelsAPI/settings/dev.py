@@ -15,6 +15,7 @@ TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = '0-3lhlvovx6&nkau1+dr9npw47@q0*#^48p)t!1b**bla9ejc)'
 
 INSTALLED_APPS += (
+    'autofixture',
     'debug_toolbar',
     'django_extensions',
 )
@@ -36,5 +37,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'PAGE_SIZE': 15,
+    'PAGE_SIZE': 10,
 }
