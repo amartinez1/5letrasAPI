@@ -12,4 +12,5 @@ class APIRoot(APIView):
             'ammenities': reverse('ammenities-list', request=request),
             'rooms': reverse('rooms-list', request=request),
             'towns': reverse('towns-list', request=request),
+            'token-auth': reverse('token-auth', request=request),
         })
