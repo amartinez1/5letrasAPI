@@ -1,9 +1,12 @@
 from core.models import TimeStampedModel
 from django.db import models
 
+from motels.models import Motel
+
 from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
+
 
 class Town(TimeStampedModel):
     name = models.CharField(max_length=50, unique=False)
@@ -17,6 +20,11 @@ class Town(TimeStampedModel):
 
     def __unicode__(self):
         return self.name
+
+    def count(instance):
+        return Motel.objects.filter(town=instance,
+            town__status=True, status=True).count()
+
 
 class TownImage(TimeStampedModel):
     towns = models.ForeignKey('towns.Town', related_name='images')

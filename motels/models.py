@@ -1,7 +1,6 @@
 from django.db import models
 
 from core.models import TimeStampedModel
-from towns.models import Town
 
 from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
@@ -34,7 +33,7 @@ class Motel(TimeStampedModel):
         return self.name
 
     def get_percent(self):
-        return self.rating / float(self.user_count)
+        return self.rating
 
 
 class MotelImage(TimeStampedModel):

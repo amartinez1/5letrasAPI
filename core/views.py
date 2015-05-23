@@ -7,6 +7,7 @@ class APIRoot(APIView):
     def get(self, request):
         return Response({
             'motels': reverse('motels-list', request=request),
+            'motels-retrieve': reverse('token-auth', request=request),
             'motel_filters': reverse('motels-filters', request=request),
             'comments': reverse('comments-list', request=request),
             'ammenities': reverse('ammenities-list', request=request),
