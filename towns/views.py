@@ -12,7 +12,7 @@ class TownList(generics.ListAPIView):
     """
     queryset = Town.objects.filter(status=True)
     serializer_class = TownListSerializer
-    paginate_by = 100
+    paginate_by = 0
 
 
 class TownRetrieve(generics.RetrieveAPIView):

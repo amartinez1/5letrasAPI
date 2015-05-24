@@ -13,7 +13,7 @@ class AmenitiesList(generics.ListAPIView):
     """
     queryset = Amenitie.objects.all()
     serializer_class = AmenitiesListSerializer
-    paginate_by = 100
+    paginate_by = 0
 
 
 class AmenitiesRetrieve(generics.RetrieveAPIView):
