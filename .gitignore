@@ -1,7 +1,6 @@
 media/*
 migrations/
 motels_db
-motelsAPI/fixtures/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

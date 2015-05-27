@@ -12,25 +12,33 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+from os.path import abspath, basename, dirname, join, normpath
 from django.conf import global_settings
+
+DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+
+SITE_ROOT = dirname(DJANGO_ROOT)
+
+TEMPLATE_DIRS = (
+    normpath(join(SITE_ROOT, 'templates')),
+)
+
+TEMPLATE_DIRS = (
+    normpath(join(SITE_ROOT, 'templates')),
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-STATIC_ROOT = 'static'
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    normpath(join(SITE_ROOT, 'static')),
 )
 
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
 MEDIA_URL = '/media/'
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 
 INSTALLED_APPS = (
     'bootstrap_admin',
