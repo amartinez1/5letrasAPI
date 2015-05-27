@@ -93,3 +93,11 @@ class MotelRetrieve(generics.RetrieveAPIView):
         queryset = Motel.objects.filter(status=True, town__status=True)
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel
+
+class MotelRetrieveById(generics.RetrieveAPIView):
+    """
+    Retrieves a motel by its slug 
+    """
+    queryset = Motel.objects.filter(status=True, town__status=True)
+    serializer_class = MotelRetrieveSerializer
+    
