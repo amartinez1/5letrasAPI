@@ -15,15 +15,15 @@ import os
 
 from django.conf import global_settings
 
-# Common class
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
@@ -150,7 +150,6 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
         ('full_image', 'url')
     ]
 }
-
 
 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
