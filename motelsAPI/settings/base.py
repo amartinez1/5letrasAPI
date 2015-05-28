@@ -30,12 +30,12 @@ TEMPLATE_DIRS = (
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-STATIC_ROOT = normpath(join(SITE_ROOT, 'static'))
+STATIC_ROOT = normpath(join(SITE_ROOT, 'assets'))
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = (
-#     normpath(join(SITE_ROOT, 'static')),
-# )
+STATICFILES_DIRS = (
+    normpath(join(SITE_ROOT, 'static')),
+)
 
 MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
 MEDIA_URL = '/media/'
