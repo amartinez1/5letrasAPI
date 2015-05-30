@@ -32,7 +32,7 @@ class TownRetrieve(generics.RetrieveAPIView):
     """
     Retrieves a Town by its slug
     """
-    serializer_class = TownListSerializer
+    serializer_class = TownListExtraInfoSerializer
     lookup_field = 'slug'
 
     def get_object(self):

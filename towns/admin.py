@@ -16,7 +16,7 @@ class TownAdmin(admin.ModelAdmin):
                     'status')
     list_display_links = ['id', 'name', 'status']
     list_filter = ['name', 'status']
-    search_fields = ['id', 'name', 'position']
+    search_fields = ['id', 'name', 'latitude', 'longitude']
     inlines = [TownImageChoiceInLine]
 
 

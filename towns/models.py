@@ -6,7 +6,7 @@ from motels.models import Motel
 from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
-from geoposition.fields import GeopositionField
+# from geoposition.fields import GeopositionField
 
 
 class Town(TimeStampedModel):
