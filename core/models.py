@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from django.contrib.gis.db import models
+
 from rest_framework.authtoken.models import Token
 
 
@@ -17,4 +19,13 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
-	
+
+
+# class Location(models.Model):
+#     """
+#     A model which holds information about a particular location
+#     """
+#     address = models.CharField(max_length=255)
+#     city = models.CharField(max_length=100)
+#     state = models.CharField(max_length=100)
+#     point = models.PointField()

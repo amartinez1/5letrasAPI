@@ -12,9 +12,9 @@ class Motel(TimeStampedModel):
     name = models.CharField(max_length=50, unique=False)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
     latitude = models.DecimalField(max_digits=16, decimal_places=13,
-        blank=True, null=True)
+                                   blank=True, null=True)
     longitude = models.DecimalField(max_digits=16, decimal_places=13,
-        blank=True, null=True)
+                                    blank=True, null=True)
     price_range = models.IntegerField(blank=True, null=True)
     rating = models.FloatField(editable=False, default=0)
     user_count = models.IntegerField(editable=False, default=0)
@@ -26,7 +26,8 @@ class Motel(TimeStampedModel):
     website = models.URLField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
-    amenities = models.ManyToManyField('amenities.Amenitie', related_name='amenities',
+    amenities = models.ManyToManyField('amenities.Amenitie',
+                                       related_name='amenities',
                                        blank=True)
 
     def __unicode__(self):

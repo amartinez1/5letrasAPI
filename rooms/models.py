@@ -13,7 +13,9 @@ class Room(TimeStampedModel):
     price = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
-    room_amenities = models.ManyToManyField('amenities.Amenitie', related_name='room_amenities', blank=True)
+    room_amenities = models.ManyToManyField('amenities.Amenitie',
+                                            related_name='room_amenities',
+                                            blank=True)
 
     def __unicode__(self):
         return self.name
@@ -23,7 +25,7 @@ class RoomImage(TimeStampedModel):
     motels = models.ForeignKey('rooms.Room', related_name='images')
     image = VersatileImageField(
         'Rooms Image',
-        upload_to='uploaded_files/Rooms/' ,
+        upload_to='uploaded_files/Rooms/',
         ppoi_field='image_ppoi',
         blank=True
     )

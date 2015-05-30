@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     url(r'^api/motels/$', views.MotelList.as_view(), name='motels-list'),
-    url(r'^api/motels/(?P<motels_slug>[\w-]+)/$', views.MotelRetrieve.as_view(), name='motels-retrieve'),
+    url(r'^api/motels/(?P<motels_slug>[\w-]+)/$',
+        views.MotelRetrieve.as_view(), name='motels-retrieve'),
 ]

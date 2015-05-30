@@ -8,7 +8,7 @@ class AmenitieAdmin(admin.ModelAdmin):
     fields = ('name',)
     list_display = ('id', 'name', 'created_date')
     list_display_links = ['id', 'name']
-    list_filter =['name']
+    list_filter = ['name']
     search_fields = ['id', 'name', 'slug']
 
 

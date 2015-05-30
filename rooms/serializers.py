@@ -8,11 +8,12 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
 class RoomImagesSerializer(serializers.ModelSerializer):
-  image = VersatileImageFieldSerializer(sizes='common_size')
+    image = VersatileImageFieldSerializer(sizes='common_size')
 
-  class Meta:
-      model = RoomImage
-      fields = ('id', 'image')
+    class Meta:
+        model = RoomImage
+        fields = ('id', 'image')
+
 
 class RoomListSerializer(serializers.ModelSerializer):
     images = RoomImagesSerializer(many=True, read_only=True)
@@ -20,6 +21,5 @@ class RoomListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ('id', 'name', 'slug',
-                  'price', 'description','images',
-                  'room_amenities')
+        fields = ('id', 'name', 'slug', 'price',
+                  'description', 'images', 'room_amenities')

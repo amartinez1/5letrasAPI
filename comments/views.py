@@ -6,24 +6,25 @@ from .serializers import CommentsListSerializer
 
 from rest_framework import generics
 
+
 class CommentList(generics.ListCreateAPIView):
     """
     Retrieves a list of all Comments
     """
-    queryset = Comment.objects.filter(status=True, motel__status=True, 
+    queryset = Comment.objects.filter(status=True, motel__status=True,
                                       motel__town__status=True)
     serializer_class = CommentsListSerializer
 
 
 class CommentMotelListFilter(generics.ListAPIView):
     """
-    Retrieves a motel comments listt by its slug 
+    Retrieves a motel comments listt by its slug
     """
     serializer_class = CommentsListSerializer
 
-
     def get_queryset(self):
-        queryset = Comment.objects.filter(status=True, motel__status=True, 
+        queryset = Comment.objects.filter(status=True, motel__status=True,
                                           motel__town__status=True,
-                                          motel__slug=self.kwargs['motel_slug'])
+                                          motel__slug=self.kwargs['motel_slug']
+                                          )
         return queryset

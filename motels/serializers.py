@@ -10,11 +10,11 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
 class MotelImagesSerializer(serializers.ModelSerializer):
-  image = VersatileImageFieldSerializer(sizes='common_size')
+    image = VersatileImageFieldSerializer(sizes='common_size')
 
-  class Meta:
-      model = MotelImage
-      fields = ('id', 'image')
+    class Meta:
+        model = MotelImage
+        fields = ('id', 'image')
 
 
 class MotelListSerializer(serializers.ModelSerializer):
@@ -23,12 +23,10 @@ class MotelListSerializer(serializers.ModelSerializer):
     rating_percent = serializers.ReadOnlyField(source="get_percent")
     town = TownListSerializer()
 
-
     def get_motel_town(self, town):
         queryset = Town.objects.filter(status=True, town=town)
         serializer = TownListSerializer(instance=queryset, many=True)
         return serializer.data
-
 
     class Meta:
         model = Motel
@@ -52,13 +50,11 @@ class MotelRetrieveSerializer(serializers.ModelSerializer):
         serializer = RoomListSerializer(instance=queryset, many=True)
         return serializer.data
 
-
     class Meta:
         model = Motel
-        fields = ('id', 'name', 'slug', 'town', 'latitude', 
+        fields = ('id', 'name', 'slug', 'town', 'latitude',
                   'longitude', 'price_range', 'rating',
-                  'rating_percent', 'images', 'address', 
-                  'email', 'telephone', 'website', 
+                  'rating_percent', 'images', 'address',
+                  'email', 'telephone', 'website',
                   'description', 'rooms', 'amenities',
                   'get_percent')
-

@@ -15,8 +15,10 @@ class MotelFilter(django_filters.FilterSet):
     """
     town = django_filters.CharFilter(name="town__name")
     amenities = django_filters.CharFilter(name="amenities__name")
-    min_price = django_filters.NumberFilter(name="price_range", lookup_type='gte')
-    max_price = django_filters.NumberFilter(name="price_range", lookup_type='lte')
+    min_price = django_filters.NumberFilter(name="price_range",
+                                            lookup_type='gte')
+    max_price = django_filters.NumberFilter(name="price_range",
+                                            lookup_type='lte')
 
     class Meta:
         model = Motel
@@ -44,12 +46,13 @@ class MotelList(generics.ListAPIView):
         *  #####Ordering by price: [?ordering=price](?ordering=price)
         *  #####Ordering by price: [?ordering=created_date](?ordering=created_date)
 
-    The API may also specify reverse orderings by prefixing the field name with '-', like so:
-        
+    The API may also specify reverse orderings by prefixing the field name
+    with '-', like so:
+
         - http://example.com/api/motels?ordering=-name
-    
+
     Multiple orderings may also be specified:
-        
+
         - http://example.com/api/motels?ordering=name,town__name
     ---
     ###3. Filters Values
@@ -76,7 +79,7 @@ class MotelList(generics.ListAPIView):
 
 class MotelRetrieve(generics.RetrieveAPIView):
     """
-    Retrieves a motel by its slug 
+    Retrieves a motel by its slug
     """
     serializer_class = MotelRetrieveSerializer
     lookup_field = 'slug'
@@ -85,4 +88,3 @@ class MotelRetrieve(generics.RetrieveAPIView):
         queryset = Motel.objects.filter(status=True, town__status=True)
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel
-    
