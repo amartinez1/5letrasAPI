@@ -56,8 +56,8 @@ class MotelList(generics.ListAPIView):
     > Filters by town, amenities, min_price, max_price and rating.
 
     - ####Examples:
-        *  #####Filter by town: [?town__name=Guaynabo](?town__name=Guaynabo)
-        *  #####Filter by amenities: [?amenities__name=Wifi](?amenities__name=Wifi)
+        *  #####Filter by town: [?town=Guaynabo](?town=Guaynabo)
+        *  #####Filter by amenities: [?amenities=Wifi](?amenities=Wifi)
         *  #####Filter by rating: [?rating=5](?rating=5)
         *  #####Filter by rating: [?min_price=5](?min_price=5)
         *  #####Filter by rating: [?max_price=15](?max_price=15)
