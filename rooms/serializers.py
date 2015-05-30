@@ -1,6 +1,5 @@
 from .models import Room
 from .models import RoomImage
-from amenities.models import Amenitie
 from amenities.serializers import AmenitiesListSerializer
 
 from rest_framework import serializers

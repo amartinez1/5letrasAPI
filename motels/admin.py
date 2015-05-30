@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Motel
 from .models import MotelImage
-from amenities.models import Amenitie
 from rooms.models import Room
 
 
@@ -13,7 +12,7 @@ class MotelChoiceInLine(admin.TabularInline):
 
 class MotelRoomsInLine(admin.TabularInline):
     model = Room
-    extra = 3
+    extra = 1
 
 
 class MotelsImageChoiceInLine(admin.TabularInline):

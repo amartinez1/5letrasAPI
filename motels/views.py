@@ -1,16 +1,12 @@
 import django_filters
-
 from django.shortcuts import get_object_or_404
 
 from rest_framework import filters
 from rest_framework import generics
 
 from .models import Motel
-from comments.models import Comment
-
 from .serializers import MotelListSerializer
 from .serializers import MotelRetrieveSerializer
-from comments.serializers import CommentsListSerializer
 
 
 class MotelFilter(django_filters.FilterSet):
@@ -31,7 +27,13 @@ class MotelList(generics.ListAPIView):
     """
     #Retrieves a list of all motels
     ---
-    ### 1. Ordering Values Documentation
+    ### 1. Search Values
+    > Search by motel name keyword
+
+    - ####Example:
+        *  #####Search by Motel Name: [?search=MotelName](?search=MotelName)
+    ---
+    ### 2. Ordering Values
     > Order by name, town name, amenities name, rating and price
 
     - ####Examples:
@@ -50,35 +52,25 @@ class MotelList(generics.ListAPIView):
         
         - http://example.com/api/motels?ordering=name,town__name
     ---
-    ### 2. Search Values Documentation
-    > Search by motel name keyword
-
-    - ####Example:
-        *  #####Search by Motel Name: [?search=MotelName](?search=MotelName)
-    ---
-    """
-    queryset = Motel.objects.filter(status=True, town__status=True)
-    serializer_class = MotelListSerializer
-    filter_backends = (filters.OrderingFilter, filters.SearchFilter)
-    ordering_fields = ('name', 'town__name', 'amenities__name',
-                       'rating', 'price', 'created_date')
-    search_fields = ('^name', )
-
-
-class MotelListFilters(generics.ListAPIView):
-    """
-    #Retrieves a list of all motels
-    ---
-    ###Filters Values Documentation
+    ###3. Filters Values
     > Filters by town, amenities, min_price, max_price and rating.
 
     - ####Examples:
-        *  #####Filter by town: [?town=Guaynabo](?town=Guaynabo)
-        *  #####Filter by amenities: [?amenities=Wifi](?amenities=Wifi)
+        *  #####Filter by town: [?town__name=Guaynabo](?town__name=Guaynabo)
+        *  #####Filter by amenities: [?amenities__name=Wifi](?amenities__name=Wifi)
         *  #####Filter by rating: [?rating=5](?rating=5)
+        *  #####Filter by rating: [?min_price=5](?min_price=5)
+        *  #####Filter by rating: [?max_price=15](?max_price=15)
+    ---
     """
     queryset = Motel.objects.filter(status=True, town__status=True)
     serializer_class = MotelListSerializer
+    filter_backends = (filters.OrderingFilter, filters.SearchFilter,
+                       filters.DjangoFilterBackend)
+    ordering_fields = ('name', 'town__name', 'amenities__name',
+                       'rating', 'price', 'created_date')
+    search_fields = ('name', )
+    # filter_fields = ('town__name', 'amenities__name', 'rating')
     filter_class = MotelFilter
 
 
@@ -93,11 +85,4 @@ class MotelRetrieve(generics.RetrieveAPIView):
         queryset = Motel.objects.filter(status=True, town__status=True)
         motel = get_object_or_404(queryset, slug=self.kwargs['motels_slug'])
         return motel
-
-class MotelRetrieveById(generics.RetrieveAPIView):
-    """
-    Retrieves a motel by its slug 
-    """
-    queryset = Motel.objects.filter(status=True, town__status=True)
-    serializer_class = MotelRetrieveSerializer
     

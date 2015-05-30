@@ -1,14 +1,10 @@
-from django.core.paginator import Paginator
-
 from .models import Motel
 from .models import MotelImage
-from amenities.models import Amenitie
 from rooms.models import Room
 from rooms.serializers import RoomListSerializer
 from towns.serializers import TownListSerializer
 from amenities.serializers import AmenitiesListSerializer
 
-from rest_framework import pagination
 from rest_framework import serializers
 from versatileimagefield.serializers import VersatileImageFieldSerializer
 
