@@ -1,2 +1,2 @@
 # 5letrasAPI
-no hace falta description... el que sabe sabe
+P.R hotel search API
