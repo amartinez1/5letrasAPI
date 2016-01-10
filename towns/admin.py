@@ -3,7 +3,6 @@ from django.contrib import admin
 from .models import Town
 from .models import TownImage
 
-
 class TownImageChoiceInLine(admin.TabularInline):
     model = TownImage
     extra = 1
@@ -11,12 +10,15 @@ class TownImageChoiceInLine(admin.TabularInline):
 
 class TownAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'latitude', 'longitude', 'status')
-    list_display = ('id', 'name', 'latitude', 'longitude',
-                    'status')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'status', 'point'),
+        }),
+    )
+    list_display = ('id', 'name', 'status')
     list_display_links = ['id', 'name', 'status']
     list_filter = ['name', 'status']
-    search_fields = ['id', 'name', 'latitude', 'longitude']
+    search_fields = ['id', 'name']
     inlines = [TownImageChoiceInLine]
 
 

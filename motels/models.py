@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 
 from core.models import TimeStampedModel
 
@@ -11,15 +11,12 @@ class Motel(TimeStampedModel):
     town = models.ForeignKey('towns.Town', related_name='town')
     name = models.CharField(max_length=50, unique=False)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
-    latitude = models.DecimalField(max_digits=16, decimal_places=13,
-                                   blank=True, null=True)
-    longitude = models.DecimalField(max_digits=16, decimal_places=13,
-                                    blank=True, null=True)
     price_range = models.IntegerField(blank=True, null=True)
     rating = models.FloatField(editable=False, default=0)
     user_count = models.IntegerField(editable=False, default=0)
     address = models.CharField(max_length=255, blank=True, null=True)
     address2 = models.CharField(max_length=255, blank=True, null=True)
+    point = models.PointField()
     telephone = models.CharField(
         max_length=15, unique=False, blank=True, null=True)
     email = models.EmailField(blank=True, null=True, unique=False)

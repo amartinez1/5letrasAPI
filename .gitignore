@@ -1,5 +1,4 @@
 media/*
-migrations/
 motels_db
 
 # Byte-compiled / optimized / DLL files

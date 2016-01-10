@@ -22,16 +22,17 @@ class MotelsImageChoiceInLine(admin.TabularInline):
 
 class MotelAdmin(admin.ModelAdmin):
     date_hierarchy = "updated_date"
-    fields = ('name', 'town', 'latitude', 'longitude',
-              'telephone', 'website', 'address', 'address2',
-              'email', 'description', 'status', 'amenities')
-    list_display = ('id', 'town', 'name', 'latitude', 'longitude',
-                    'rating', 'user_count', 'email', 'address', 'status',
+    fields = ('name', 'town', 'telephone', 'website',
+              'address', 'address2', 'email', 'description',
+              'status', 'amenities', 'point')
+    list_display = ('id', 'town', 'name',
+                    'rating', 'user_count',
+                    'email', 'address', 'status',
                     'updated_date')
     list_display_links = ['id', 'name', 'status']
     list_filter = ['rating', 'status', 'amenities', 'town']
-    search_fields = ['id', 'name', 'slug', 'latitude',
-                     'longitude', 'status', 'rating']
+    search_fields = ['id', 'name', 'slug',
+                     'status', 'rating']
     inlines = [MotelsImageChoiceInLine, MotelRoomsInLine]
 
 

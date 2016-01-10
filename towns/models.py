@@ -1,22 +1,17 @@
 from core.models import TimeStampedModel
-from django.db import models
+from django.contrib.gis.db import models
 
 from motels.models import Motel
 
 from autoslug import AutoSlugField
 from versatileimagefield.fields import PPOIField
 from versatileimagefield.fields import VersatileImageField
-# from geoposition.fields import GeopositionField
 
 
 class Town(TimeStampedModel):
     name = models.CharField(max_length=50, unique=False)
     slug = AutoSlugField(populate_from='name', unique=True, max_length=50)
-    # position = GeopositionField()
-    latitude = models.DecimalField(max_digits=16, decimal_places=13,
-                                   blank=True, null=True)
-    longitude = models.DecimalField(max_digits=16, decimal_places=13,
-                                    blank=True, null=True)
+    point = models.PointField()
     status = models.BooleanField(default=True)
 
     class Meta:
@@ -32,7 +27,7 @@ class Town(TimeStampedModel):
 
 
 class TownImage(TimeStampedModel):
-    towns = models.ForeignKey('towns.Town', related_name='images')
+    towns = models.ForeignKey(Town, related_name='images')
     image = VersatileImageField(
         'Towns Image',
         upload_to='uploaded_files/motels/',

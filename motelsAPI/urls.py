@@ -6,10 +6,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'^', include('core.urls')),
-    url(r'^', include('motels.urls')),
-    url(r'^', include('towns.urls')),
-    url(r'^', include('rooms.urls')),
-    url(r'^', include('amenities.urls')),
-    url(r'^', include('comments.urls')),
+    url(r'^', include('core.urls', namespace="core")),
+    url(r'^api/', include('restapi.urls', namespace="rest-api")),
 ]

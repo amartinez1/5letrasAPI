@@ -5,12 +5,18 @@ import dj_database_url
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'motels_db',
-        'USER': 'admin_motels',
-        'PASS': 'motels',
+        'USER': os.environ['db_user'],
+        'PASS': os.environ['db_password'],
     }
 }
+
+INSTALLED_APPS += (
+    'storages',
+)
+
+CORS_ORIGIN_ALLOW_ALL = False
 
 # Parse database configuration from $DATABASE_URL
 DATABASES['default'] = dj_database_url.config()
@@ -33,20 +39,31 @@ def get_env_setting(setting):
 SECRET_KEY = get_env_setting('SECRET_KEY')
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
 
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser',
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10,
 }
+
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_DIRECTORY = '/media/'
+MEDIA_URL = S3_URL + MEDIA_DIRECTORY
+STATIC_URL = S3_URL
